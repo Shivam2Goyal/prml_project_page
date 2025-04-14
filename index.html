@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Network Intrusion Detector</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: #000;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 5px;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #0275d8;
+        margin-bottom: 30px;
+      }
+
+      .authors {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-top: 20px;
+      }
+
+      .authors a {
+        text-decoration: none;
+        color: #333; /* dark gray, readable */
+        font-size: 16px;
+      }
+
+      .authors a:hover {
+        color: #007bff; /* change on hover */
+        text-decoration: underline;
+      }
+
+      .affiliations {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .links {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .links a {
+        margin: 0 5px;
+        color: #0275d8;
+        text-decoration: none;
+      }
+
+      .links a:hover {
+        text-decoration: underline;
+      }
+
+      .abstract {
+        margin-bottom: 30px;
+      }
+
+      ul.bullet-list {
+        list-style-type: disc;
+        padding-left: 20px;
+      }
+
+      .section {
+        margin-bottom: 40px;
+      }
+
+      .team-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .team-member {
+        width: 180px;
+        text-align: center;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 5px;
+      }
+
+      .team-member img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+      }
+
+      .team-member .name {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .team-member .social a {
+        margin: 0 5px;
+        color: #0275d8;
+        text-decoration: none;
+      }
+      .team-member .social a:hover {
+        margin: 0 5px;
+        color: #004c8e;
+        text-decoration: underline;
+      }
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+
+      .comparison-table th {
+        background-color: #f2f2f2;
+      }
+
+      .highlight {
+        background-color: #e6f7ff;
+      }
+
+      .implementation-sklearn {
+        background-color: #f0f7ff;
+      }
+
+      .implementation-scratch {
+        background-color: #fff7f0;
+      }
+
+      .methodology-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+      }
+
+      .methodology-item {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+      }
+
+      .methodology-item h3 {
+        margin-top: 0;
+      }
+
+      .acknowledgment {
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: 40px;
+      }
+
+      .contact {
+        margin-top: 40px;
+        text-align: center;
+      }
+
+      .footer {
+        margin-top: 50px;
+        text-align: center;
+        font-size: 0.9em;
+        color: #666;
+        border-top: 1px solid #ddd;
+        padding-top: 20px;
+      }
+
+      /* Visualization styles */
+      .visualization {
+        text-align: center;
+        margin: 30px 0;
+      }
+
+      .visualization img {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        gap: 30px;
+        margin: 30px 0;
+      }
+
+      .result-card {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+      }
+
+      .result-card h3 {
+        margin-top: 0;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+      }
+
+      .legend {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 15px;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .legend-color {
+        width: 20px;
+        height: 20px;
+        border-radius: 3px;
+      }
+
+      .image-container {
+      position: relative;
+      width: 600px;
+      height: 440px;
+      margin: 30px auto;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #f9f9f9;
+    }
+
+    .slider {
+      display: flex;
+      width: 200%;
+      height: 400px;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .nav-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      z-index: 1;
+      border-radius: 50%;
+    }
+
+    .left-button {
+      left: 10px;
+    }
+
+    .right-button {
+      right: 10px;
+    }
+
+    .nav-button:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    #caption {
+      padding: 10px;
+      text-align: center;
+      font-size: 16px;
+      color: #333;
+      background-color: #eee;
+      border-top: 1px solid #ccc;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Network Intrusion Detection System</h1>
+    <div class="subtitle">
+      Using Multiple Machine Learning Algorithms on KDD Cup'99 and NSL-KDD
+      Datasets
+    </div>
+
+    <div class="authors">
+      <a
+        href="https://www.linkedin.com/in/shivam-goyal-85b63928a/"
+        target="_blank"
+        >Shivam Goyal</a
+      >
+      <a
+        href="https://www.linkedin.com/in/goutham-a-s-93b30b312/"
+        target="_blank"
+        >Goutham A S</a
+      >
+      <a
+        href="https://www.linkedin.com/in/satvik-garg-2a2a64285/"
+        target="_blank"
+        >Satvik Garg</a
+      >
+      <a href="https://www.linkedin.com/in/kaustubh-salodkar/" target="_blank"
+        >Kaustubh Salodkar</a
+      >
+      <a
+        href="https://www.linkedin.com/in/dhruvil-gohil-96974528a/"
+        target="_blank"
+        >Dhruvil Gohil</a
+      >
+      <a
+        href="https://www.linkedin.com/in/maulik-dave-82a058280/"
+        target="_blank"
+        >Maulik Dave</a
+      >
+    </div>
+
+    <div class="links">
+      <a href="#paper">Paper</a> |
+      <a href="https://github.com/Shivam2Goyal/Network-Intrusion-Detector"
+        >Code</a
+      >
+      | <a href="#slides">Slides</a> |
+      <a href="http://34.131.252.107/">Demo</a>
+    </div>
+
+    <div class="image-container">
+      <button class="nav-button left-button" onclick="prevImage()">&#8592;</button>
+      <div class="slider" id="slider">
+        <div class="slide"><img id="img1" src="KDD_Cup_F1.png" alt="Image 1"></div>
+        <div class="slide"><img id="img2" src="NSL_KDD_F1.png" alt="Image 2"></div>
+        <div class="slide"><img id="img3" src="LR_KDD.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="LR_NSL.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="DT_KDD.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="DT_NSL.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="KNN_KDD.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="KNN_NSL.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="NB_KDD.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="NB_NSL.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="RF_KDD.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="RF_NSL.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="ANN_KDD.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="ANN_NSL.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="XGBOOST_KDD.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="XGBOOST_NSL.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="SVM_KDD.png" alt="Image 3"></div>
+        <div class="slide"><img id="img3" src="SVM_NSL.png" alt="Image 3"></div>
+      </div>
+      <button class="nav-button right-button" onclick="nextImage()">&#8594;</button>
+      <div id="caption">F1 Score for KDD Cup Dataset</div>
+    </div>
+
+    <script>
+    const images = [
+      "KDD_Cup_F1.png",
+      "NSL_KDD_F1.png",
+      "LR_KDD.png",
+      "LR_NSL.png",
+      "DT_KDD.png",
+      "DT_NSL.png",
+      "KNN_KDD.png",
+      "KNN_NSL.png",
+      "NB_KDD.png",
+      "NB_NSL.png",
+      "RF_KDD.png",
+      "RF_NSL.png",
+      "ANN_KDD.png",
+      "ANN_NSL.png",
+      "XGBOOST_KDD.png",
+      "XGBOOST_NSL.png",
+      "SVM_KDD.png",
+      "SVM_NSL.png"
+    ];
+
+    const captions = [
+      'F1 Score for KDD Cup Dataset',
+      'F1 Score for NSL-KDD Dataset',
+      "Logistics Regression on KDD CUP'99 Dataset",
+      "Logistics Regression on NSL-KDD Dataset",
+      "Decision Tree on KDD CUP'99 Dataset",
+      "Decision Tree on NSL-KDD Dataset",
+      "K Nearest Neighbour on KDD CUP'99 Dataset",
+      "K Nearest Neighbour on NSL-KDD Dataset",
+      "Naive Bayes on KDD CUP'99 Dataset",
+      "Naive Bayes on NSL-KDD Dataset",
+      "Random Forest on KDD CUP'99 Dataset",
+      "Random Forest on NSL-KDD Dataset",
+      "Artificial Neural Network on KDD CUP'99 Dataset",
+      "Artificial Neural Network on NSL-KDD Dataset",
+      "XGBOOST on KDD CUP'99 Dataset",
+      "XGBOOST on NSL-KDD Dataset",
+      "Support Vector Machine on KDD CUP'99 Dataset",
+      "Support Vector Machine on NSL-KDD Dataset"
+    ];
+
+    let currentIndex = 0;
+    const slider = document.getElementById('slider');
+    const caption = document.getElementById('caption');
+
+    function updateSlider() {
+      slider.style.transform = `translateX(-${currentIndex * 50}%)`;
+      caption.textContent = captions[currentIndex];
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      updateSlider();
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateSlider();
+    }
+
+    // Optional: preload all images
+    window.onload = () => {
+      for (let i = 0; i < images.length; i++) {
+        const img = new Image();
+        img.src = images[i];
+      }
+    };
+  </script>
+  
+    <div class="section abstract">
+      <h2>Abstract</h2>
+      <p>
+        Network intrusion detection systems (NIDS) are critical components of
+        cybersecurity infrastructure, designed to identify malicious activities
+        in network traffic. In this project, we develop a comprehensive NIDS
+        using various machine learning algorithms on the well-established KDD
+        Cup'99 and NSL-KDD datasets. We implement and compare multiple
+        classification techniques including Naive Bayes, Artificial Neural
+        Networks (ANN), Decision Trees, Random Forest, Logistic Regression,
+        Support Vector Machines (SVM), and K-Nearest Neighbors (KNN). Our
+        approach involves both using scikit-learn's implementations and
+        developing algorithms from scratch to provide deeper insights into their
+        workings. Experimental results demonstrate that ensemble methods like
+        Random Forest achieve the highest accuracy while maintaining reasonable
+        computational efficiency. This work contributes to the understanding of
+        how different machine learning paradigms perform in intrusion detection
+        tasks and provides a foundation for developing more robust security
+        systems.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Introduction</h2>
+      <p>
+        With the increasing sophistication of cyber attacks, developing
+        effective intrusion detection systems has become paramount for network
+        security. Machine learning techniques offer powerful tools for
+        identifying patterns associated with network intrusions, potentially
+        outperforming traditional rule-based systems. Our project focuses on
+        evaluating and comparing various machine learning approaches for network
+        intrusion detection.
+      </p>
+      <p>We utilize two benchmark datasets in this domain:</p>
+      <ul class="bullet-list">
+        <li>
+          <strong>KDD Cup'99</strong>: A widely-used dataset containing a wide
+          variety of intrusions simulated in a military network environment.
+        </li>
+        <li>
+          <strong>NSL-KDD</strong>: An improved version of KDD Cup'99,
+          addressing issues such as redundant records and improving the
+          distribution of attack types.
+        </li>
+      </ul>
+      <p>
+        By implementing both scikit-learn based and from-scratch versions of our
+        algorithms, we aim to provide:
+      </p>
+      <ul class="bullet-list">
+        <li>
+          Comprehensive performance comparisons across different machine
+          learning paradigms
+        </li>
+        <li>
+          Insights into algorithmic behavior and hyperparameter sensitivity
+        </li>
+        <li>
+          Educational value by demonstrating core algorithm implementations
+        </li>
+        <li>
+          Analysis of model suitability for real-time intrusion detection
+          applications
+        </li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Methodology</h2>
+      <p>
+        Our approach combines rigorous data preprocessing, and the
+        implementation of seven distinct classification algorithms, both using
+        scikit-learn and developed from scratch. We have evaluated our models
+        through performance metrics like accuracy, precision, recall, F1-score,
+        confusion matrices, and the ROC curve.
+      </p>
+
+      <h3>Data Preprocessing</h3>
+      <p>
+        We applied the following preprocessing steps to the KDD Cup'99 dataset:
+      </p>
+      <ul class="bullet-list">
+        <li>Assigned appropriate column names for easier interpretation</li>
+        <li>
+          Dropped the unnecessary columns, which are constant or uninformative
+        </li>
+        <li>
+          Converted categorical columns (<code>protocol_type</code>,
+          <code>service</code>, <code>flag</code>) to numerical format using
+          one-hot encoding
+        </li>
+        <li>
+          Mapped the <code>label</code> column to binary values: 0 for normal
+          traffic, 1 for attacks
+        </li>
+        <li>
+          Normalized all numerical features using standardization (zero mean and
+          unit variance)
+        </li>
+        <li>
+          Split the dataset into training and testing sets with an 80-20 ratio
+          for KDD Cup'99 and used the Train and Test files for NSL-KDD Dataset
+        </li>
+      </ul>
+
+      <h3>Classification Models</h3>
+      <div class="methodology-grid">
+        <div class="methodology-item">
+          <h3>Naive Bayes</h3>
+          <p>
+            Probabilistic classifier based on applying Bayes' theorem with
+            strong independence assumptions between features.
+          </p>
+        </div>
+        <div class="methodology-item">
+          <h3>Artificial Neural Networks</h3>
+          <p>
+            Multi-layer perceptron architecture with backpropagation for
+            learning complex patterns in network traffic.
+          </p>
+        </div>
+        <div class="methodology-item">
+          <h3>Decision Tree</h3>
+          <p>
+            Tree-based model that creates a flowchart-like structure to make
+            decisions based on feature values.
+          </p>
+        </div>
+        <div class="methodology-item">
+          <h3>Random Forest</h3>
+          <p>
+            Ensemble method combining multiple decision trees to improve
+            accuracy and control overfitting.
+          </p>
+        </div>
+        <div class="methodology-item">
+          <h3>Logistic Regression</h3>
+          <p>
+            Statistical model that applies a logistic function to predict the
+            probability of an intrusion event.
+          </p>
+        </div>
+        <div class="methodology-item">
+          <h3>Support Vector Machines</h3>
+          <p>
+            Creates an optimal hyperplane in high-dimensional space to separate
+            normal from intrusive traffic.
+          </p>
+        </div>
+        <div class="methodology-item">
+          <h3>K-Nearest Neighbors</h3>
+          <p>
+            Instance-based learning where classification is based on the
+            majority class of k nearest data points.
+          </p>
+        </div>
+        <div class="methodology-item">
+          <h3>XGBoost</h3>
+          <p>
+            XGBoost builds an ensemble of decision trees using gradient boosting
+            to optimize prediction accuracy.
+          </p>
+        </div>
+      </div>
+
+      <h3>Implementation Approach</h3>
+      <p>For each algorithm, we created two implementations:</p>
+      <ul class="bullet-list">
+        <li>
+          <strong>Scikit-learn Based</strong>: Utilizing the optimized
+          implementations from the scikit-learn library with hyperparameter
+          tuning.
+        </li>
+        <li>
+          <strong>From Scratch</strong>: Developing custom implementations to
+          gain deeper insights into algorithm behavior and adaptability.
+        </li>
+      </ul>
+
+      <h3>Evaluation Metrics</h3>
+      <p>We evaluated each model using the following metrics:</p>
+      <ul class="bullet-list">
+        <li>Accuracy</li>
+        <li>Precision, Recall, and F1-score</li>
+        <li>False Positive Rate and False Negative Rate</li>
+        <li>Area Under ROC Curve (AUC)</li>
+        <li>Training and Inference Time</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Results</h2>
+      <p>
+        Our comprehensive evaluation reveals interesting patterns in the
+        performance of different classification algorithms across both datasets,
+        comparing scikit-learn implementations with our from-scratch
+        implementations.
+      </p>
+
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color" style="background-color: #f0f7ff"></div>
+          <span>scikit-learn implementation</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background-color: #fff7f0"></div>
+          <span>From-scratch implementation</span>
+        </div>
+      </div>
+
+      <div class="results-grid">
+        <div class="result-card">
+          <h3>KDD Cup'99 Dataset Results</h3>
+          <table class="comparison-table">
+            <tr>
+              <th>Algorithm</th>
+              <th>Implementation</th>
+              <th>Accuracy</th>
+              <th>F1-Score</th>
+            </tr>
+            <!-- Naive Bayes -->
+            <tr class="implementation-sklearn">
+              <td rowspan="2">Naive Bayes</td>
+              <td>scikit-learn</td>
+              <td>97.37%</td>
+              <td>0.9665</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>97.37%</td>
+              <td>0.9665</td>
+            </tr>
+            <!-- ANN -->
+            <tr class="implementation-sklearn">
+              <td rowspan="2">ANN</td>
+              <td>scikit-learn</td>
+              <td>99.70%</td>
+              <td>0.9963</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+            <!-- Decision Tree -->
+            <tr class="implementation-sklearn">
+              <td rowspan="2">Decision Tree</td>
+              <td>scikit-learn</td>
+              <td>99.89%</td>
+              <td>0.9987</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>99.42%</td>
+              <td>0.9926</td>
+            </tr>
+            <!-- Random Forest -->
+            <tr class="implementation-sklearn highlight">
+              <td rowspan="2">Random Forest</td>
+              <td>scikit-learn</td>
+              <td>99.99%</td>
+              <td>0.9998</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>99.99%</td>
+              <td>0.9998</td>
+            </tr>
+            <!-- Logistic Regression -->
+            <tr class="implementation-sklearn">
+              <td rowspan="2">Logistic Regression</td>
+              <td>scikit-learn</td>
+              <td>99.07%</td>
+              <td>0.9883</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>99.00%</td>
+              <td>0.9875</td>
+            </tr>
+            <!-- SVM -->
+            <tr class="implementation-sklearn">
+              <td rowspan="2">SVM</td>
+              <td>scikit-learn</td>
+              <td>99.74%</td>
+              <td>0.9967</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>98.91%</td>
+              <td>0.9862</td>
+            </tr>
+            <!-- KNN -->
+            <tr class="implementation-sklearn">
+              <td rowspan="2">KNN</td>
+              <td>scikit-learn</td>
+              <td>99.81%</td>
+              <td>0.9976</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+            <!-- XGBOOST -->
+            <tr class="implementation-sklearn">
+              <td rowspan="2">XGboost</td>
+              <td>scikit-learn</td>
+              <td>99.94%</td>
+              <td>0.9993</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="result-card">
+          <h3>NSL-KDD Dataset Results</h3>
+          <table class="comparison-table">
+            <tr>
+              <th>Algorithm</th>
+              <th>Implementation</th>
+              <th>Accuracy</th>
+              <th>F1-Score</th>
+            </tr>
+            <!-- Naive Bayes -->
+            <tr class="implementation-sklearn">
+              <td rowspan="2">Naive Bayes</td>
+              <td>scikit-learn</td>
+              <td>88.68%</td>
+              <td>0.8691</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>81.11%</td>
+              <td>0.7569</td>
+            </tr>
+            <!-- ANN -->
+            <tr class="implementation-sklearn">
+              <td rowspan="2">ANN</td>
+              <td>scikit-learn</td>
+              <td>79.98%</td>
+              <td>0.7909</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+            <!-- Decision Tree -->
+            <tr class="implementation-sklearn">
+              <td rowspan="2">Decision Tree</td>
+              <td>scikit-learn</td>
+              <td>82.23%</td>
+              <td>0.8199</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>81.46%</td>
+              <td>0.8111</td>
+            </tr>
+            <!-- Random Forest -->
+            <tr class="implementation-sklearn highlight">
+              <td rowspan="2">Random Forest</td>
+              <td>scikit-learn</td>
+              <td>78.57%</td>
+              <td>0.773</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>78.16%</td>
+              <td>0.770</td>
+            </tr>
+            <!-- Logistic Regression -->
+            <tr class="implementation-sklearn">
+              <td rowspan="2">Logistic Regression</td>
+              <td>scikit-learn</td>
+              <td>76.19%</td>
+              <td>0.7523</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>74.32%</td>
+              <td>0.7256</td>
+            </tr>
+            <!-- SVM -->
+            <tr class="implementation-sklearn">
+              <td rowspan="2">SVM</td>
+              <td>scikit-learn</td>
+              <td>85.39%</td>
+              <td>0.8574</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>90.09%</td>
+              <td>0.9117</td>
+            </tr>
+            <!-- KNN -->
+            <tr class="implementation-sklearn">
+              <td rowspan="2">KNN</td>
+              <td>scikit-learn</td>
+              <td>78.87%</td>
+              <td>0.7769</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+            <!-- XGboost -->
+            <tr class="implementation-sklearn">
+              <td rowspan="2">XGboost</td>
+              <td>scikit-learn</td>
+              <td>80.74%</td>
+              <td>0.8016</td>
+            </tr>
+            <tr class="implementation-scratch">
+              <td>From scratch</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <h3>Key Findings</h3>
+      <ul class="bullet-list">
+        <li>
+          <strong>Random Forest (scikit-learn)</strong> achieved the highest
+          accuracy and F1-Score on the <strong>KDD Cup'99</strong> dataset
+          (99.99% accuracy, 0.9998 F1), making it the top-performing algorithm
+          on that dataset.
+        </li>
+        <li>
+          <strong>SVM (from scratch)</strong> recorded the highest accuracy
+          (90.09%) and F1-Score (0.9117) on the
+          <strong>NSL-KDD</strong> dataset, outperforming even the scikit-learn
+          implementation of SVM and other models on this dataset.
+        </li>
+        <li>
+          <strong>Decision Trees</strong> demonstrated strong performance across
+          both datasets. On KDD Cup'99, the scikit-learn version scored 99.89%
+          accuracy with 0.9987 F1, and on NSL-KDD it maintained solid
+          performance (82.23% accuracy, 0.8199 F1).
+        </li>
+        <li>
+          <strong>Naive Bayes</strong> was consistent across implementations on
+          the KDD Cup'99 dataset (97.37% accuracy, 0.9665 F1), but performance
+          dropped significantly on NSL-KDD, especially in the from-scratch
+          version.
+        </li>
+        <li>
+          <strong>KNN (scikit-learn)</strong> showed good results on KDD Cup'99
+          (99.81% accuracy, 0.9976 F1), but dropped on NSL-KDD (78.87% accuracy,
+          0.7769 F1).
+        </li>
+        <li>
+          <strong>ANN</strong> achieved strong results on KDD Cup'99 using
+          scikit-learn (99.70% accuracy, 0.9963 F1), but had relatively lower
+          performance on NSL-KDD (79.98% accuracy, 0.7909 F1).
+        </li>
+        <li>
+          Overall, the <strong>NSL-KDD</strong> dataset posed a greater
+          challenge than KDD Cup'99, as it addresses key issues such as
+          redundant records and class imbalance present in the original dataset.
+          By providing a more balanced and realistic distribution of attack and
+          normal traffic, NSL-KDD better tests the generalization capability of
+          algorithms, leading to lower but more meaningful performance metrics.
+        </li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Team</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="shivam.jpg" alt="Team Member 1" />
+          <div class="name">Shivam Goyal</div>
+          <div class="affiliation">Department of AI and Data Science</div>
+          <div class="social">
+            <a href="https://www.linkedin.com/in/shivam-goyal-85b63928a/"
+              >LinkedIn</a
+            >
+            <a href="https://github.com/Shivam2Goyal">GitHub</a>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="gotem.jpeg" alt="Team Member 2" />
+          <div class="name">Goutham A S</div>
+          <div class="affiliation">Department of Electrical Engineering</div>
+          <div class="social">
+            <a href="https://www.linkedin.com/in/goutham-a-s-93b30b312/"
+              >LinkedIn</a
+            >
+            <a href="https://github.com/Goutham-IITJ">GitHub</a>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="satvik.jpg" alt="Team Member 3" />
+          <div class="name">Satvik Garg</div>
+          <div class="affiliation">Department of Electrical Engineering</div>
+          <div class="social">
+            <a href="https://www.linkedin.com/in/satvik-garg-2a2a64285/"
+              >LinkedIn</a
+            >
+            <a href="https://github.com/Satvik0110">GitHub</a>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="kaustubh.jpg" alt="Team Member 4" />
+          <div class="name">Kaustubh Salodkar</div>
+          <div class="affiliation">Department of Electrical Engineering</div>
+          <div class="social">
+            <a href="https://www.linkedin.com/in/kaustubh-salodkar/"
+              >LinkedIn</a
+            >
+            <a href="https://github.com/lileskimo">GitHub</a>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="dhruvil.jpeg" alt="Team Member 5" />
+          <div class="name">Dhruvil Gohil</div>
+          <div class="affiliation">Department of Electrical Engineering</div>
+          <div class="social">
+            <a href="https://www.linkedin.com/in/dhruvil-gohil-96974528a/"
+              >LinkedIn</a
+            >
+            <a href="https://github.com/b23ee1018">GitHub</a>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="maulik.jpeg" alt="Team Member 6" />
+          <div class="name">Maulik Dave</div>
+          <div class="affiliation">Department of Electrical Engineering</div>
+          <div class="social">
+            <a href="https://www.linkedin.com/in/maulik-dave-82a058280/"
+              >LinkedIn</a
+            >
+            <a href="https://github.com/Maulik102005">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <p>
+        © 2024 Network Intrusion Detection System |
+        <a href="https://github.com/Shivam2Goyal/Network-Intrusion-Detector"
+          >GitHub Repository</a
+        >
+      </p>
+    </div>
+  </body>
+</html>
